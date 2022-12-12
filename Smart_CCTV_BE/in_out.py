@@ -1,8 +1,8 @@
 import cv2
-from datetime import datetime
+import datetime
 def in_out():
     cap = cv2.VideoCapture(0)
-
+    count = 0
 
     right, left = "", ""
 
@@ -42,14 +42,14 @@ def in_out():
                     print("to left")
                     x = 300
                     right, left = "", ""
-                    cv2.imwrite(f"visitors/in/{datetime.now().strftime('%-y-%-m-%-d-%H:%M:%S')}.jpg", frame1)
+                    cv2.imwrite(f"visitors/in/{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.jpg", frame1)
             
         elif left:
                 if x > 500:
                     print("to right")
                     x = 300
                     right, left = "", ""
-                    cv2.imwrite(f"visitors/out/{datetime.now().strftime('%-y-%-m-%-d-%H:%M:%S')}.jpg", frame1)
+                    cv2.imwrite(f"visitors/out/{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.jpg", frame1)
             
             
         

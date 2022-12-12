@@ -12,8 +12,8 @@ def spot_diff(frame1, frame2):
 	g1 = cv2.cvtColor(frame1, cv2.COLOR_BGR2GRAY)
 	g2 = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
 
-	g1 = cv2.blur(g1, (2,2))
-	g2 = cv2.blur(g2, (2,2))
+	g1 = cv2.blur(g1, (1,1))
+	g2 = cv2.blur(g2, (1,1))
 
 	(score, diff) = structural_similarity(g2, g1, full=True)
 
@@ -39,7 +39,7 @@ def spot_diff(frame1, frame2):
 	cv2.imshow("diff", thresh)
 	cv2.imshow("win1", frame1)
 	#beepy.beep(sound=4)
-	cv2.imwrite("stolen/"+datetime.now().strftime('%-y-%-m-%-d-%H:%M:%S')+".jpg", frame1)
+	cv2.imwrite(f"stolen/{datetime.now().strftime('%y-%m-%d-%H-%M-%S')}.jpg", frame1)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
 
