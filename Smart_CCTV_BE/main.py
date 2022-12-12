@@ -8,6 +8,7 @@ from rect_noise import rect_noise
 from record import record
 from find_motion import find_motion
 from identify import maincall
+from violence_detection import detect_violence
 import os
 from PIL import Image
 
@@ -23,6 +24,7 @@ recording_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "re
 identify_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "identify.png")),size=(30,30))
 rectangle_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "rectangle-of-cutted-line-geometrical-shape.png")),size=(30,30))
 noise_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "security-camera.png")),size=(30,30))
+violence_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "violence.png")), size=(30,30))
 logo_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "spy.png")),size=(100,100))
 
 app = customtkinter.CTk()
@@ -61,6 +63,9 @@ btn_in_out.grid(row=2,column = 1, pady=10, padx=10)
 
 btn_record = customtkinter.CTkButton(master=frame_1, text="Record", image=recording_image, command=record)
 btn_record.grid(row=2,column = 2,pady=10, padx=10)
+
+btn_violence = customtkinter.CTkButton(master=frame_1, text="Violence Detection", image=violence_image, command=detect_violence)
+btn_violence.grid(row=3,column = 0,pady=10, padx=10)
 
 btn_quit = customtkinter.CTkButton(master=frame_1, text="Quit", image=quit_image, command=app.quit)
 btn_quit.grid(row=3,column = 1, pady=10, padx=10)
