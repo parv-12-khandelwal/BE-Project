@@ -38,7 +38,7 @@ def spot_diff(frame1, frame2):
 
 	cv2.imshow("diff", thresh)
 	cv2.imshow("win1", frame1)
-	#beepy.beep(sound=4)
+	#beepy.beep(sound=7)
 	cv2.imwrite(f"stolen/{datetime.now().strftime('%y-%m-%d-%H-%M-%S')}.jpg", frame1)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
