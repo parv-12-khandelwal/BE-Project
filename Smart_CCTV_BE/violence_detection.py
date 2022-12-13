@@ -14,13 +14,14 @@ import os
 from keras.models import load_model
 from collections import deque
 
+
 def detect_violence(limit=None):
         #fig=plt.figure(figsize=(16, 30))
         if not os.path.exists('output'):
             os.mkdir('output')
 
         print("Loading model ...")
-        model = load_model('ViolenceDetectionModels/modelnew.h5')
+        model = load_model('ViolenceDetectionModels/modelnew.h5',compile=False)
         Q = deque(maxlen=128)
         vs = cv2.VideoCapture(0)
         writer = None
