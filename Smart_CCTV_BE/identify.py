@@ -3,16 +3,14 @@ import os
 import numpy as np
 import tkinter as tk
 import tkinter.font as font
+import customtkinter as ctk
 
-def collect_data():
-	name = input("Enter name of person : ")
-
+def collect_data(name, ids):
 	count = 1
-	ids = input("Enter ID: ")
-
+	
 	cap = cv2.VideoCapture(0)
 
-	filename = "haarcascade_frontalface_default.xml"
+	filename = "haarcascade_frontalface_alt.xml"
 
 	cascade = cv2.CascadeClassifier(filename)
 
@@ -63,6 +61,8 @@ def train():
 	recog.train(faces, np.array(ids))
 
 	recog.save('model.yml')
+
+	print('training part completed !')
 
 	return
 
@@ -134,4 +134,56 @@ def maincall():
 
 	return
 
+def maincall_2():
 
+	global databox
+	databox = False
+
+	def showDatabox():
+		def submit_member():
+			name = inp_name.get()
+			ids = inp_id.get()
+			add_member_label.destroy()
+			inp_name.destroy()
+			inp_id.destroy()
+			button_sub.destroy()
+			root.wm_geometry("360x120")
+			collect_data(name,ids)
+			
+		root.wm_geometry("360x260")
+		add_member_label = ctk.CTkLabel(master=frame_1,text= "Add Member")
+		inp_name = ctk.CTkEntry(master=frame_1, placeholder_text="Name")
+		inp_id = ctk.CTkEntry(master=frame_1,  placeholder_text="ID")
+		button_sub = ctk.CTkButton(master=frame_1, text="Submit", command=submit_member)
+		add_member_label.grid(row=4)
+		inp_name.grid(row = 4, columnspan=2, pady=10, padx= 10, sticky='nesw')
+		inp_id.grid(row = 5, columnspan=2, pady=10, padx= 10, sticky='nesw')
+		button_sub.grid(row = 6, pady=10, padx= 10)
+
+
+	ctk.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
+	ctk.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
+	
+	root = ctk.CTk()
+	root.geometry("360x120")
+	root.title("Identify")
+
+	frame_1 = ctk.CTkFrame(master=root)
+	frame_1.pack(fill = "both", expand = True)
+	frame_1.grid(pady=20, padx=20)
+
+	label = ctk.CTkLabel(master=frame_1, text="Select below buttons ")
+	label.grid(row=0, columnspan=2)
+	label_font = font.Font(size=35, weight='bold',family='Helvetica')
+	label['font'] = label_font
+
+	btn_font = font.Font(size=25)
+
+	button1 = ctk.CTkButton(master=frame_1, text="Add Member ", command=showDatabox)
+	button1.grid(row=1, column=0, pady=(10,10), padx=(10,10))
+	button1['font'] = btn_font
+
+	button2 = ctk.CTkButton(master=frame_1, text="Start with known ", command=identify)
+	button2.grid(row=1, column=1,pady=(10,10), padx=(10,10))
+	button2['font'] = btn_font
+	root.mainloop()
