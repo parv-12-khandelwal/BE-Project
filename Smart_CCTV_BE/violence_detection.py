@@ -3,6 +3,7 @@ from collections import deque
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
+import datetime
 
 #WORKING PROJECT
 import numpy as np
@@ -19,7 +20,7 @@ def detect_violence(limit=None):
             os.mkdir('output')
 
         print("Loading model ...")
-        model = load_model('modelnew.h5')
+        model = load_model('ViolenceDetectionModels/modelnew.h5')
         Q = deque(maxlen=128)
         vs = cv2.VideoCapture(0)
         writer = None
@@ -78,7 +79,7 @@ def detect_violence(limit=None):
             if writer is None:
                 # initialize our video writer
                 fourcc = cv2.VideoWriter_fourcc(*"MJPG")
-                writer = cv2.VideoWriter("output/v_output.avi", fourcc, 30,(W, H), True)
+                writer = cv2.VideoWriter(f"violence_results/v_nv_res_{datetime.datetime.now().strftime('%y-%m-%d-%H-%M-%S')}.avi", fourcc, 30,(W, H), True)
 
             # write the output frame to disk
             writer.write(output)
