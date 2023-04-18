@@ -9,6 +9,7 @@ from record import record
 from find_motion import find_motion
 from identify import maincall_2 as maincall
 from violence_detection import detect_violence
+from count_people import cont
 #import count_people
 import os
 from PIL import Image
@@ -27,6 +28,7 @@ rectangle_image = ctk.CTkImage(Image.open(os.path.join(image_path, "rectangle-of
 noise_image = ctk.CTkImage(Image.open(os.path.join(image_path, "security-camera.png")),size=(30,30))
 violence_image = ctk.CTkImage(Image.open(os.path.join(image_path, "violence.png")), size=(30,30))
 logo_image = ctk.CTkImage(Image.open(os.path.join(image_path, "spy.png")),size=(100,100))
+count_image = ctk.CTkImage(Image.open(os.path.join(image_path, "count_people.png")), size=(30,30))
 
 app = ctk.CTk()
 app.geometry("690x340")
@@ -62,10 +64,10 @@ btn_record.grid(row=2,column = 2,pady=10, padx=10)
 btn_violence = ctk.CTkButton(master=frame_1, text="Violence Detection", image=violence_image, command=detect_violence)
 btn_violence.grid(row=3,column = 0,pady=10, padx=10)
 
-#btn_count = ctk.CTkButton(master=frame_1, text="Count people", image=violence_image, command=count_people)
-#btn_count.grid(row=3,column = 1,pady=10, padx=10)
+btn_violence = ctk.CTkButton(master=frame_1, text="Count People", image=count_image, command=cont)
+btn_violence.grid(row=3,column = 1,pady=10, padx=10)
 
 btn_quit = ctk.CTkButton(master=frame_1, text="Quit", image=quit_image, command=app.quit)
-btn_quit.grid(row=3,column =1, pady=10, padx=10)
+btn_quit.grid(row=3,column =2, pady=10, padx=10)
 
 app.mainloop()

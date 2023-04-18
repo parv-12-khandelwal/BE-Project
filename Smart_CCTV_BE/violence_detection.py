@@ -14,13 +14,20 @@ import os
 from keras.models import load_model
 from collections import deque
 
+import smtplib, os
+from email.mime.text import MIMEText
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+
+
+
 def detect_violence(limit=None):
         #fig=plt.figure(figsize=(16, 30))
         if not os.path.exists('output'):
             os.mkdir('output')
 
         print("Loading model ...")
-        model = load_model('ViolenceDetectionModels/modelnew.h5')
+        model = load_model('ViolenceDetectionModels/modelnew.h5', compile=False)
         Q = deque(maxlen=128)
         vs = cv2.VideoCapture(0)
         writer = None
@@ -66,6 +73,7 @@ def detect_violence(limit=None):
 
             if label: # Violence prob
                 text_color = (0, 0, 255) # red
+                send_mail()
 
             else:
                 text_color = (0, 255, 0)
@@ -96,3 +104,24 @@ def detect_violence(limit=None):
         writer.release()
         vs.release()
         cv2.destroyAllWindows()
+
+        
+def send_mail():
+	fromaddr = "smcctv1234@gmail.com"
+	toaddr = "s4samyak@gmail.com"
+	password = 'bhuspjpqnvnnxhdh'
+
+	msg = MIMEMultipart()
+	msg['Subject'] = 'Violence Detected'
+	msg['From'] = fromaddr
+	msg['To'] = toaddr
+	text = MIMEText("Alert!! Violence is detected")
+	msg.attach(text)
+	s = smtplib.SMTP('smtp.gmail.com', 587)
+	s.ehlo()
+	s.starttls()
+	s.ehlo()
+	s.login(fromaddr, password)
+	s.sendmail(fromaddr, toaddr, msg.as_string())
+	print("Mail sent successfully.")
+	s.quit()

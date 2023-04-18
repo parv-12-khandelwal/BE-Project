@@ -150,7 +150,7 @@ def maincall_2():
 			root.wm_geometry("360x120")
 			collect_data(name,ids)
 			
-		root.wm_geometry("360x260")
+		root.wm_geometry("450x320")
 		add_member_label = ctk.CTkLabel(master=frame_1,text= "Add Member")
 		inp_name = ctk.CTkEntry(master=frame_1, placeholder_text="Name")
 		inp_id = ctk.CTkEntry(master=frame_1,  placeholder_text="ID")
